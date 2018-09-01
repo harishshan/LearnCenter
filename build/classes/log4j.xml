@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE log4j:configuration SYSTEM "log4j.dtd">
+<log4j:configuration xmlns:log4j='http://jakarta.apache.org/log4j/'>
+    <appender name="STDOUT" class="org.apache.log4j.ConsoleAppender">
+        <layout class="org.apache.log4j.PatternLayout">
+        <param name="ConversionPattern"
+               value="%6r [%-20t] %-5p %30.30c (%6L) %x %m%n"/>
+        </layout>
+    </appender>
+	<appender name="dailyrotfile" class="org.apache.log4j.DailyRollingFileAppender">
+        <param name="file" value="logging/exam.log" />
+        <param name="datePattern" value="'.'yyyy-MM-dd" />
+        <param name="append" value="true" />
+        <layout class="org.apache.log4j.PatternLayout">
+            <param name="ConversionPattern" value="%d{ISO8601} [%-20.20t] %-5p %X{sessionId} %40.40c (%6L) - %m%n" />
+        </layout>
+        <filter class="org.apache.log4j.varia.LevelRangeFilter">
+            <param name="LevelMin" value="debug" />
+        </filter>
+    </appender>
+	<logger name="com.exam">
+        <level value="debug"/>
+    </logger>
+    <root>
+        <priority value ="debug" />
+        <appender-ref ref="STDOUT" />
+		<appender-ref ref="dailyrotfile" />
+    </root>
+</log4j:configuration>
